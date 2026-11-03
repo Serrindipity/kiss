@@ -1,0 +1,8 @@
+cd kiss-new &&
+python3 -m venv .venv &&
+.venv/bin/python -m pip install -r requirements.txt &&
+npm ci &&
+npm run build &&
+{ [ -f users.txt ] || printf 'admin\n' > users.txt; } &&
+{ [ -f config.toml ] || printf 'admin_username = "admin"\n' > config.toml; } &&
+.venv/bin/python -m uvicorn server.app:app --host 127.0.0.1 --port 8000

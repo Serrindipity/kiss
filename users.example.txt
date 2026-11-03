@@ -1,0 +1,2 @@
+# Copy to users.txt and list one authorized username per line.
+sohee

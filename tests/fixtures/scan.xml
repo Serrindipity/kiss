@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<nmaprun scanner="nmap" start="1793516400">
+  <host><status state="up"/><address addr="10.20.0.10" addrtype="ipv4"/><hostnames><hostname name="dc01.corp.local"/></hostnames><ports>
+    <port protocol="tcp" portid="53"><state state="open"/><service name="domain" method="probed"/></port>
+    <port protocol="tcp" portid="88"><state state="open"/><service name="kerberos-sec" method="probed"/></port>
+    <port protocol="tcp" portid="135"><state state="open"/><service name="msrpc" method="probed"/></port>
+    <port protocol="tcp" portid="389"><state state="open"/><service name="ldap" method="probed"/></port>
+    <port protocol="tcp" portid="445"><state state="open"/><service name="microsoft-ds" method="probed"/><script id="smb2-security-mode" output="Message signing enabled but not required"/></port>
+    <port protocol="tcp" portid="464"><state state="open"/><service name="kpasswd5" method="probed"/></port>
+    <port protocol="tcp" portid="636"><state state="open"/><service name="ldap" tunnel="ssl" method="probed"/></port>
+    <port protocol="tcp" portid="49664"><state state="open"/><service name="msrpc" method="probed"/></port>
+    <port protocol="tcp" portid="49665"><state state="open"/><service name="unknown" method="table"/></port>
+  </ports></host>
+  <host><status state="up"/><address addr="10.20.0.20" addrtype="ipv4"/><hostnames><hostname name="web01.corp.local"/></hostnames><ports>
+    <port protocol="tcp" portid="22"><state state="open"/><service name="ssh" product="OpenSSH" method="probed"/></port>
+    <port protocol="tcp" portid="443"><state state="open"/><service name="http" product="nginx" tunnel="ssl" method="probed"/></port>
+  </ports></host>
+  <host><status state="up"/><address addr="10.20.0.30" addrtype="ipv4"/><hostnames><hostname name="mail01.corp.local"/></hostnames><ports>
+    <port protocol="tcp" portid="25"><state state="open"/><service name="smtp" method="probed"/></port>
+    <port protocol="tcp" portid="143"><state state="open"/><service name="imap" method="probed"/></port>
+    <port protocol="tcp" portid="443"><state state="open"/><service name="http" tunnel="ssl" method="probed"/></port>
+  </ports></host>
+  <runstats><finished time="1793516460" exit="success"/></runstats>
+</nmaprun>

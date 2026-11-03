@@ -1,0 +1,63 @@
+.cheatsheet-main { padding: 24px; min-width: 0; }
+.cheatsheet-main .page-header { gap: 16px 32px; margin-bottom: 20px; flex-wrap: wrap; }
+.cheatsheet-main .page-header .search { flex: 1 1 260px; max-width: 440px; }
+.cheatsheet-main .search input { min-width: 0; }
+.cheatsheet-main .search button { flex-shrink: 0; }
+.cheatsheet-controls { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+.cheatsheet-categories { display: flex; flex-wrap: wrap; gap: 4px; }
+.cheatsheet-categories button { border: 0; background: transparent; color: var(--muted); padding: 7px 12px; }
+.cheatsheet-categories button:hover { background: var(--subtle); color: var(--text); }
+.cheatsheet-categories button[aria-pressed='true'] { color: var(--accent); background: var(--selected); }
+.cheatsheet-section { margin-top: 20px; }
+.cheatsheet-section > h2:not(.sr-only) { font-size: 18px; margin-bottom: 12px; }
+.cheatsheet-section-intro { color: var(--muted); font-size: 13px; }
+.cheatsheet-group { margin-top: 24px; }
+.cheatsheet-group h3 { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+.cheatsheet-entry { border-bottom: 1px solid var(--border); }
+.cheatsheet-entry > summary { padding: 12px 8px; font-size: 14px; font-weight: 500; gap: 12px; }
+.cheatsheet-entry > summary > svg { flex-shrink: 0; color: var(--muted); }
+.cheatsheet-entry > summary:hover { background: var(--subtle); }
+.cheatsheet-entry > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.cheatsheet-entry[open] > summary { color: var(--accent); }
+.cheatsheet-entry-body { padding: 6px 8px 20px; }
+.cheatsheet-entry-body dl { margin: 0; display: grid; gap: 16px; font-size: 13px; }
+.cheatsheet-entry-body dl > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; }
+.cheatsheet-entry-body dt { color: var(--muted); font-size: 12px; }
+.cheatsheet-entry-body dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.cheatsheet-caveat dd { color: var(--muted); }
+.cheatsheet-command { position: relative; background: var(--subtle); border-radius: 5px; }
+.cheatsheet-command pre { margin: 0; padding: 12px 46px 12px 12px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
+.cheatsheet-command > button { position: absolute; top: 5px; right: 5px; }
+.cheatsheet-command > .hint:not(:empty) { display: block; padding: 0 12px 8px; }
+.cheatsheet-placeholder-note { margin-top: 5px; color: var(--muted); font-size: 11px; }
+.cheatsheet-sources { margin-top: 28px; font-size: 12px; color: var(--muted); }
+.cheatsheet-sources summary { justify-content: flex-start; font-weight: 400; }
+.cheatsheet-sources summary > svg:last-child { margin-left: 0; }
+.cheatsheet-sources p { margin-block: 10px; }
+@media (max-width: 600px) {
+  .cheatsheet-main { padding: 24px 16px; }
+  .cheatsheet-main .page-header .search { flex-basis: 100%; max-width: none; }
+  .cheatsheet-controls { gap: 8px; }
+  .cheatsheet-categories button { padding-inline: 9px; }
+  .cheatsheet-entry-body dl > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+
+.cheatsheet-context { margin-top: 18px; padding-block: 12px; border-bottom: 1px solid var(--border); }
+.cheatsheet-context > summary { justify-content: flex-start; }
+.cheatsheet-context p { margin-block: 10px; }
+.cheatsheet-context-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-block: 14px; }
+.cheatsheet-context-fields input, .cheatsheet-context-fields select { min-width: 0; width: 100%; }
+.cheatsheet-examples p + p { margin-top: 12px; }
+@media (max-width: 600px) { .cheatsheet-context-fields { grid-template-columns: minmax(0, 1fr); } }
+
+.cheatsheet-topics { display: flex; flex-wrap: wrap; gap: 6px; padding-block: 14px 4px; }
+.cheatsheet-references { margin-top: 16px; font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.cheatsheet-references summary { justify-content: flex-start; gap: 8px; }
+.cheatsheet-references p { margin-block: 10px; }
+.cheatsheet-entry-body > .hint { margin: 0 0 8px; font-size: 11px; }
+.cheatsheet-guidance { font-size: 13px; line-height: 1.6; margin: 12px 0 0; }
+
+.cheatsheet-topics a { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 5px; font-size: 12px; color: var(--muted); text-decoration: none; }
+.cheatsheet-topics a:hover { background: var(--subtle); color: var(--text); }
+.cheatsheet-topics a:focus-visible, .cheatsheet-group h3:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cheatsheet-group h3 { scroll-margin-top: 24px; }

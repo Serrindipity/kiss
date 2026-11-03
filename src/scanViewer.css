@@ -1,0 +1,29 @@
+.scan-viewer { width: min(1200px, calc(100vw - 32px)); height: min(860px, calc(100dvh - 48px)); max-width: none; max-height: none; padding: 0; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); overflow: hidden; }
+.scan-viewer[open] { display: flex; flex-direction: column; }
+.scan-viewer::backdrop { background: oklch(0.2 0.015 260 / 0.5); }
+.scan-viewer-header { display: flex; justify-content: space-between; gap: 16px; padding: 20px 24px 12px; }
+.scan-viewer-header h2 { font-size: 20px; margin: 0; }
+.scan-viewer-header p { margin: 4px 0 0; overflow-wrap: anywhere; }
+.scan-viewer-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; padding: 0 24px 16px; border-bottom: 1px solid var(--border); }
+.scan-viewer-toolbar .search { flex: 1 1 240px; min-width: 0; }
+.scan-viewer-toolbar .search input { min-width: 0; }
+.scan-viewer-toolbar .check { white-space: nowrap; font-size: 12px; }
+.scan-viewer-output { flex: 1; min-height: 0; overflow: auto; padding-block: 12px; background: var(--subtle); }
+.scan-output-line { display: flex; min-width: max-content; font-size: 12px; line-height: 1.65; padding-right: 20px; }
+.scan-output-line code { white-space: pre; font-size: inherit; flex: 1; }
+.scan-line-number { flex: 0 0 62px; text-align: right; padding-right: 16px; color: var(--muted); user-select: none; font-variant-numeric: tabular-nums; }
+.wrap-lines .scan-output-line { min-width: 0; }
+.wrap-lines .scan-output-line code { white-space: pre-wrap; overflow-wrap: anywhere; min-width: 0; }
+.scan-output-line.host { font-weight: 700; color: var(--accent); margin-top: 8px; }
+.scan-output-line.open, .scan-output-line.script, .scan-output-line.port { font-weight: 600; }
+.scan-output-line.current-match { background: var(--selected); }
+.scan-output-line mark { background: var(--selected); color: var(--text); outline: 1px solid var(--accent); border-radius: 2px; }
+.scan-viewer-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; border-top: 1px solid var(--border); padding: 12px 24px; }
+.scan-viewer-message { padding: 24px; flex: 1; }
+@media (max-width: 600px) {
+  .scan-viewer { width: calc(100vw - 16px); height: calc(100dvh - 16px); }
+  .scan-viewer-header, .scan-viewer-footer { padding: 12px; }
+  .scan-viewer-toolbar { padding: 0 12px 12px; }
+  .scan-viewer-toolbar .search { flex-basis: 100%; }
+  .scan-line-number { flex-basis: 44px; padding-right: 10px; }
+}

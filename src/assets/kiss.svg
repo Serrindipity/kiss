@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <title>KISS</title>
+  <rect x="3" y="7" width="36" height="36" rx="13" fill="#E6EAFF"/>
+  <path d="M13 22c1.5-2 4-2 5.5 0" stroke="#4454D9" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="28" cy="21" r="1.6" fill="#4454D9"/>
+  <path d="m22 28 4 2.5-4 2.5" stroke="#4454D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M37 16s-6-3.7-6-7.3C31 5.2 35.3 4 37 7c1.7-3 6-1.8 6 1.7C43 12.3 37 16 37 16Z" fill="#D56B9C"/>
+</svg>

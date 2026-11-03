@@ -1,0 +1,90 @@
+.automation-page { min-width: 0; padding: 24px; }
+.automation-page .page-header { align-items: center; flex-wrap: wrap; }
+.automation-page .empty-state { text-align: left; padding: 28px 0; border-bottom: 0; }
+.automation-page .empty-state h2 { font-size: 18px; }
+.automation-page .empty-state p { max-width: 65ch; margin: 10px 0 20px; }
+.automation-page > .automation-options { margin-top: 24px; }
+@media (max-width: 1000px) {
+  .automation-page { padding: 24px 16px; }
+}
+.automation-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-block: 16px; }
+.automation-modules { border: 0; padding: 0; margin: 20px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.automation-modules legend { font-weight: 600; margin-bottom: 12px; }
+.automation-modules .check { align-items: flex-start; }
+.automation-modules small, .automation-run .hint { display: block; }
+.automation-options { border-top: 1px solid var(--border); margin-top: 20px; padding-block: 12px; }
+.automation-options > .check { margin-block: 12px; }
+.automation-options > .field { max-width: 240px; }
+.automation-run { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 8px; border-bottom: 1px solid var(--border); color: var(--text); text-decoration: none; overflow-wrap: anywhere; }
+.automation-run:hover { background: var(--subtle); }
+.automation-run-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+.automation-run-heading h2, .automation-run-heading p { margin: 0; }
+.automation-search { width: 100%; margin-block: 12px; }
+.automation-result { border-bottom: 1px solid var(--border); }
+.automation-result > summary { padding-block: 12px; gap: 12px; }
+.automation-result > summary > span:first-child { flex: 1; overflow-wrap: anywhere; }
+.automation-evidence { padding: 0 0 16px; }
+.automation-evidence pre, .automation-options pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 420px; overflow: auto; background: var(--subtle); padding: 14px; font-size: 12px; }
+.automation-form { border-top: 1px solid var(--border); padding-top: 16px; }
+@media (max-width: 650px) {
+  .automation-fields, .automation-modules { grid-template-columns: minmax(0, 1fr); }
+  .automation-run { align-items: flex-start; }
+  .automation-page .page-header { flex-wrap: wrap; }
+}
+.automation-page .page-header [hidden] { display: none; }
+.automation-list-heading { font-size: 16px; margin: 0 0 8px; }
+.automation-result-tools { display: flex; align-items: center; gap: 12px; margin-block: 18px 8px; }
+.automation-result-tools .automation-search { flex: 1; min-width: 0; margin: 0; }
+.automation-result-tools select { flex-shrink: 0; }
+.automation-result > summary { padding: 14px 8px; align-items: center; }
+.automation-result > summary:hover { background: var(--subtle); }
+.automation-result-heading { min-width: 0; }
+.automation-result-heading strong { font-size: 13px; font-weight: 600; }
+.automation-result-heading small { display: block; font-weight: 400; margin-top: 3px; overflow-wrap: anywhere; }
+.automation-status { font-size: 11px; padding: 3px 7px; border-radius: 4px; background: var(--subtle); color: var(--muted); white-space: nowrap; }
+.automation-status.attention { color: var(--text); border: 1px solid var(--border); font-weight: 600; }
+.automation-result .automation-evidence { padding: 0 8px 20px; }
+.automation-evidence h4 { font-size: 13px; margin: 14px 0 6px; }
+.automation-evidence pre { margin-block: 8px 14px; }
+.automation-record { border-bottom: 1px solid var(--border); padding-block: 8px; }
+.automation-record > summary { justify-content: space-between; gap: 12px; font-size: 13px; overflow-wrap: anywhere; }
+.automation-properties { margin: 12px 0; }
+.automation-properties > div { display: grid; grid-template-columns: minmax(130px, 1fr) minmax(0, 3fr); gap: 12px; padding-block: 5px; font-size: 12px; }
+.automation-properties dt { color: var(--muted); overflow-wrap: anywhere; }
+.automation-properties dd { margin: 0; overflow-wrap: anywhere; }
+.automation-values { display: grid; gap: 4px; }
+.automation-ports { font-size: 12px; }
+.automation-ports td, .automation-ports th { padding: 8px 10px; }
+.automation-raw { margin-top: 14px; }
+.automation-raw > summary { justify-content: flex-start; gap: 8px; font-size: 12px; color: var(--muted); }
+@media (max-width: 650px) {
+  .automation-result-tools { flex-wrap: wrap; }
+  .automation-result-tools .automation-search { flex-basis: 100%; }
+  .automation-properties > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .automation-result > summary { gap: 8px; padding-inline: 0; }
+}
+.automation-run-types { display: flex; gap: 8px; margin-block: 16px 20px; }
+.automation-run-types button { flex: 1; display: flex; flex-direction: column; align-items: flex-start; text-align: left; white-space: normal; padding: 12px 14px; }
+.automation-run-types button[aria-pressed='true'] { background: var(--selected); border-color: var(--accent); }
+.automation-run-types .hint { font-weight: 400; }
+.automation-lab-picker { margin-block: 20px; }
+.automation-lab-picker h3 { margin: 0; font-size: 14px; }
+.automation-profiles { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--border); padding-block: 12px; }
+.automation-profiles button { background: transparent; border-color: transparent; }
+.automation-profiles button[aria-pressed='true'] { background: var(--selected); color: var(--accent); }
+.automation-check-choice { display: flex; align-items: flex-start; gap: 12px; padding: 12px 8px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.automation-check-choice:hover { background: var(--subtle); }
+.automation-check-choice > input { margin-top: 4px; flex-shrink: 0; }
+.automation-check-choice > span:nth-child(2) { flex: 1; min-width: 0; }
+.automation-check-choice strong { display: block; font-size: 13px; }
+.automation-check-choice small { display: block; margin-top: 3px; }
+.automation-lab-picker > .field { margin-top: 16px; }
+@media (max-width: 650px) {
+  .automation-run-types { flex-direction: column; }
+  .automation-profiles button { font-size: 12px; padding: 6px 8px; }
+}
+.automation-included { list-style: none; padding: 0; margin: 12px 0; }
+.automation-included li { padding-block: 8px; border-bottom: 1px solid var(--border); }
+.automation-included strong { display: block; font-size: 13px; }
+.automation-included .hint { display: block; margin-top: 2px; }
+.automation-status.signal { background: var(--selected); color: var(--accent); font-weight: 600; }

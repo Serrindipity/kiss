@@ -1,0 +1,265 @@
+% Simple penetration test report template. Compile with pdfLaTeX twice (or latexmk -pdf).
+% Overleaf: upload this file and select pdfLaTeX as the compiler.
+% Replace all bracketed prompts before submitting. No findings are pre-populated.
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{array,tabularx,longtable,booktabs}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% EDIT THESE FIRST. Use \& for an ampersand in names.
+\newcommand{\ClientName}{[Client name]}
+\newcommand{\TeamName}{[Team name]}
+\newcommand{\EngagementName}{Penetration Test}
+\newcommand{\TestingDates}{[Start date -- end date]}
+\newcommand{\ReportDate}{[Report date]}
+\newcommand{\ReportVersion}{0.1 -- Draft}
+
+% Formatting: standard fonts, generous margins, restrained color.
+\renewcommand{\familydefault}{\sfdefault}
+\definecolor{accent}{HTML}{234A61}
+\definecolor{muted}{HTML}{555555}
+\definecolor{lightgray}{HTML}{F3F4F5}
+\definecolor{critical}{HTML}{85213B}
+\definecolor{high}{HTML}{A33125}
+\definecolor{medium}{HTML}{805500}
+\definecolor{low}{HTML}{245E85}
+\definecolor{informational}{HTML}{555555}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,
+  pdftitle={Penetration Test Report}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\headheight}{15pt}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.25}
+\setlist{nosep,leftmargin=*}
+\setcounter{tocdepth}{2}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{muted}{\ClientName}}
+\fancyhead[R]{\small\textcolor{muted}{Penetration Test Report}}
+\fancyfoot[L]{\small Confidential}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\prompt}[1]{\textit{\textcolor{muted}{[#1]}}}
+\newcommand{\severity}[1]{\textbf{\textcolor{#1}{\MakeUppercase{#1}}}}
+\lstset{basicstyle=\small\ttfamily,backgroundcolor=\color{lightgray},
+  breaklines=true,columns=fullflexible,keepspaces=true,
+  showstringspaces=false,frame=single,rulecolor=\color{lightgray},
+  xleftmargin=6pt,xrightmargin=6pt,aboveskip=10pt,belowskip=10pt}
+
+% Usage: \finding{F-01}{Title}{high}{finding:unique-label}
+% Severity: critical, high, medium, low, or informational.
+% Each finding starts on a new page; its contents can span multiple pages.
+\newcommand{\finding}[4]{%
+  \clearpage
+  \subsection{#1: #2}\label{#4}
+  \severity{#3}\par
+}
+
+\begin{document}
+
+% COVER -----------------------------------------------------------------------
+\begin{titlepage}
+  {\large\TeamName\par}
+  \vspace{1.6in}
+  {\Huge\bfseries\color{accent}Penetration Test\\[6pt]Report\par}
+  \vspace{0.4in}
+  {\LARGE\ClientName\par}
+  {\large\EngagementName\par}
+  \vspace{0.6in}
+  \begin{tabular}{@{}ll@{}}
+    Testing period & \TestingDates \\
+    Report date & \ReportDate \\
+    Version & \ReportVersion \\
+    Prepared by & \TeamName
+  \end{tabular}
+  \vfill
+  \textbf{Confidential}\par
+  Prepared for the client and authorized competition evaluators.
+  Findings describe the environment observed during the testing period.
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+% EXECUTIVE SUMMARY -----------------------------------------------------------
+\section{Executive Summary}
+\prompt{In two or three sentences, explain what the client does, the objective
+of the engagement, and which business services were assessed.}
+
+\subsection*{Overall assessment}
+\prompt{Explain the most important demonstrated risk in plain language.
+State what access the team obtained and what business operations or data could
+be affected. Separate observed results from potential consequences.}
+
+\subsection*{Key observations}
+\begin{itemize}
+  \item \prompt{Most significant validated weakness and business impact.}
+  \item \prompt{Another important weakness, or a chain of findings.}
+  \item \prompt{A security control that worked, supported by testing.}
+\end{itemize}
+
+\subsection*{Recommended priorities}
+\begin{enumerate}
+  \item \prompt{Immediate action to reduce the greatest demonstrated risk.}
+  \item \prompt{Near-term correction that addresses a shared root cause.}
+  \item \prompt{Longer-term improvement and how the client can verify it.}
+\end{enumerate}
+
+% SCOPE -----------------------------------------------------------------------
+\clearpage
+\section{Scope and Approach}
+\begin{tabularx}{\textwidth}{@{}lY@{}}
+  \toprule
+  Client & \ClientName \\
+  Testing period & \TestingDates \\
+  Team / contact & \TeamName{} / \prompt{Contact} \\
+  Starting access & \prompt{External, internal, provided credentials, roles} \\
+  \bottomrule
+\end{tabularx}
+
+\subsection{Authorized scope}
+\begin{tabularx}{\textwidth}{@{}p{0.30\textwidth}Y@{}}
+  \toprule
+  \textbf{Asset / range} & \textbf{Purpose and boundaries} \\
+  \midrule
+  \prompt{Hostname, IP, or CIDR} & \prompt{Service and permitted testing} \\
+  \prompt{Application or site} & \prompt{URL, roles, and permitted testing} \\
+  \bottomrule
+\end{tabularx}
+
+\textbf{Excluded activities and assets:}
+\prompt{Record exclusions and rules of engagement, including any restrictions
+on social engineering, disruption, or accessing sensitive data.}
+
+\subsection{Approach and limitations}
+\prompt{Briefly describe reconnaissance, enumeration, manual validation,
+and any authorized exploitation. List only activities actually performed.}
+
+\prompt{Record time constraints, unavailable systems, missing credentials,
+and untested areas. Explain how each limitation affects the conclusions.}
+
+\subsection{Risk rating}
+Findings are prioritized using exploitability and business impact in the
+assessed environment. Each finding explains its rating. Informational items
+record observations without a demonstrated direct security impact.
+\prompt{Adjust this method to the engagement requirements. If using CVSS,
+record the version, score, and full vector for each scored finding.}
+
+% FINDINGS OVERVIEW -----------------------------------------------------------
+\clearpage
+\section{Findings Overview}
+\prompt{Summarize the main themes. Order findings by risk. Keep this table
+consistent with the detailed findings; the row below is a placeholder.}
+
+% Add one row per finding. longtable continues across pages automatically.
+\begin{longtable}{@{}p{0.09\textwidth}p{0.16\textwidth}p{0.38\textwidth}p{0.27\textwidth}@{}}
+  \toprule
+  \textbf{ID} & \textbf{Severity} & \textbf{Finding} & \textbf{Affected assets} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{ID} & \textbf{Severity} & \textbf{Finding} & \textbf{Affected assets} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \hyperref[finding:01]{F-01} & \severity{high} &
+  \hyperref[finding:01]{[Finding title]} & \prompt{Assets} \\
+\end{longtable}
+
+% DETAILED FINDINGS -----------------------------------------------------------
+% Copy from \finding through the references prompt to add another finding.
+% Assign a unique ID and label, then add a row to the overview above.
+% The first finding follows the section title without an extra page break.
+\clearpage
+\section{Detailed Findings}
+\begingroup
+\let\clearpage\relax
+\finding{F-01}{[Finding title]}{high}{finding:01}
+\endgroup
+
+\begin{tabularx}{\textwidth}{@{}lY@{}}
+  \toprule
+  Affected assets & \prompt{Hosts, IPs, URLs, ports, or accounts} \\
+  Preconditions & \prompt{Required access, role, and network position} \\
+  Status & \prompt{Open / remediated / partially remediated / not retested} \\
+  \bottomrule
+\end{tabularx}
+
+\subsubsection*{Description}
+\prompt{Explain the weakness, its root cause, and where it occurs. Include
+enough context for the client to understand the issue.}
+
+\subsubsection*{Impact and rating rationale}
+\prompt{State the demonstrated result and its business impact. Explain why
+the likelihood and impact justify the severity. Clearly identify any impact
+that is plausible but was not tested.}
+
+\subsubsection*{Reproduction and evidence}
+\begin{enumerate}
+  \item \prompt{Describe the starting access and exact target.}
+  \item \prompt{Provide the request, command, or action used.}
+  \item \prompt{Describe the observed result and reference the evidence.}
+\end{enumerate}
+
+% lstlisting preserves characters such as _, %, #, and backslashes literally.
+\begin{lstlisting}
+[Paste a minimal command, HTTP request, or output excerpt here.]
+[Redact credentials, session tokens, and unnecessary personal data.]
+\end{lstlisting}
+
+\prompt{Evidence ID, capture timestamp with timezone, and what the evidence proves.}
+
+% Optional screenshot: upload an image and uncomment this block.
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=\linewidth,height=0.45\textheight,
+%                    keepaspectratio]{evidence/f01.png}
+%   \caption{F-01: Describe the observed result. Sensitive values are redacted.}
+%   \label{fig:f01}
+% \end{figure}
+
+\subsubsection*{Remediation}
+\prompt{Give a specific corrective action that addresses the root cause.
+Include a temporary mitigation if the permanent fix needs more time.}
+
+\subsubsection*{Verification}
+\prompt{Explain how to repeat the test after remediation and what secure
+behavior should look like. Record retest date and outcome only if retested.}
+
+\subsubsection*{References}
+\prompt{Link relevant vendor guidance, CWE, or advisories using
+\texttt{\textbackslash url\{https://example.com\}}. Remove if unnecessary.}
+
+% OPTIONAL APPENDIX -----------------------------------------------------------
+\clearpage
+\appendix
+\section{Engagement Notes}
+% Remove unused subsections. Keep long raw tool output outside the main report.
+\subsection{Attack narrative}
+\prompt{If multiple findings formed an attack path, briefly explain the
+sequence from initial access to the demonstrated business impact. Reference
+finding IDs and distinguish tested steps from hypothetical ones.}
+
+\subsection{Cleanup and handover}
+\prompt{List accounts, files, configuration changes, or other artifacts
+created during testing. Record removal status and any client action needed.}
+
+\subsection{Supporting evidence}
+\prompt{List separately delivered evidence files and their associated finding
+IDs. Include timestamps and hashes where useful for traceability.}
+
+\end{document}

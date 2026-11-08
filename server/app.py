@@ -775,6 +775,17 @@ def create_app(data_dir=None, users_file=None, config_file=None):
     def update_finding(id: str, payload: Finding, username=Depends(auth)):
         return save_finding(payload, username, id)
 
+    @app.delete('/api/findings/{id}')
+    def delete_finding(id: str, revision: int, username=Depends(auth)):
+        with db() as conn:
+            conn.execute('BEGIN IMMEDIATE')
+            finding = get(conn, 'findings', id)
+            if finding['revision'] != revision:
+                raise HTTPException(409, 'This finding changed. Close this dialog and try again.')
+            conn.execute("DELETE FROM records WHERE kind='findings' AND id=?", (id,))
+            activity(conn, username, 'deleted finding', 'finding', id, finding['title'])
+        return {'ok': True}
+
     def save_credential(payload, username, id=None):
         if payload.kind not in {'domain', 'local', 'service', 'api', 'ssh', 'other'}:
             raise HTTPException(422, 'Choose a credential type.')

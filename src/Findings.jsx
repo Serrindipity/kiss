@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Download, Plus, Search } from 'lucide-react';
+import { ArrowLeft, Download, Plus, Search, Trash2 } from 'lucide-react';
 import { api, displayTime, hostName, portName } from './api';
 import MarkdownEditor, { MarkdownView } from './MarkdownEditor';
 import useDraft from './useDraft';
@@ -26,7 +26,7 @@ function ScopePicker({ hosts, value, onChange }) {
   </fieldset>;
 }
 
-function FindingEditor({ record, state, onBack, onSaved }) {
+function FindingEditor({ record, state, onBack, onSaved, onDeleted }) {
   const initial = record || { title: '', description: '', steps: '', remediation: '', finders: [state.username], scope: [], status: 'Draft', revision: 0 };
   const draftKey = `kiss:${state.username}:finding:${record?.id || 'new'}`;
   const { value, setValue, dirty, accept } = useDraft(draftKey, initial);
@@ -54,10 +54,19 @@ function FindingEditor({ record, state, onBack, onSaved }) {
     } catch (err) { setError(err.message); }
     finally { setBusy(false); }
   }
+  async function remove() {
+    if (!window.confirm('Delete this finding? It is removed for the whole team and cannot be undone.')) return;
+    setBusy(true); setError('');
+    try {
+      await api(`/findings/${value.id}?revision=${value.revision}`, { method: 'DELETE' });
+      sessionStorage.removeItem(draftKey);
+      onDeleted();
+    } catch (err) { setError(err.message); setBusy(false); }
+  }
   return <main className="finding-editor">
     <button className="quiet back-link" onClick={onBack}><ArrowLeft size={16} /> Findings</button>
     <form onSubmit={save}>
-      <header className="page-header"><h1>{value.id ? 'Edit finding' : 'New finding'}</h1><div className="row"><button type="button" onClick={() => setPreview(v => !v)}>{preview ? 'Edit report' : 'Preview report'}</button><button className="primary" disabled={busy || uploading}>{busy ? 'Saving…' : 'Save finding'}</button></div></header>
+      <header className="page-header"><h1>{value.id ? 'Edit finding' : 'New finding'}</h1><div className="row">{value.id && <button type="button" className="danger-button" onClick={remove} disabled={busy}><Trash2 size={16} /> Delete</button>}<button type="button" onClick={() => setPreview(v => !v)}>{preview ? 'Edit report' : 'Preview report'}</button><button className="primary" disabled={busy || uploading}>{busy ? 'Saving…' : 'Save finding'}</button></div></header>
       <div className="save-status hint" role="status">{message || (dirty ? 'Draft kept in this browser tab. Save to share with the team.' : 'Changes are shared when you save.')}</div>
       {error && <p className="error" role="alert">{error}</p>}
       {conflict && <div className="notice"><p>This finding has a newer server version. Copy any changes you want to keep before loading it.</p><button type="button" onClick={() => { if (!dirty || window.confirm('Replace this local draft with the latest server version?')) { accept(latest); setError(''); } }}>Load latest version</button></div>}
@@ -80,7 +89,7 @@ export default function Findings({ state, editing, setEditing, refresh }) {
   const [message, setMessage] = useState('');
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
-  if (editing) return <FindingEditor key={editing.id || 'new'} record={editing === 'new' ? null : editing} state={state} onBack={() => setEditing(null)} onSaved={() => { setQuery(''); setStatus(''); setMessage('Finding saved.'); setEditing(null); refresh(); }} />;
+  if (editing) return <FindingEditor key={editing.id || 'new'} record={editing === 'new' ? null : editing} state={state} onBack={() => setEditing(null)} onSaved={() => { setQuery(''); setStatus(''); setMessage('Finding saved.'); setEditing(null); refresh(); }} onDeleted={() => { setMessage('Finding deleted.'); setEditing(null); refresh(); }} />;
   const findings = state.findings.filter(f => `${f.title} ${f.description} ${f.finders.join(' ')}`.toLowerCase().includes(query.toLowerCase()) && (!status || f.status === status));
   return <main className="findings-main">
     <header className="page-header"><h1>Findings</h1><div className="row"><a className="button" href="/api/export"><Download /> Export Markdown</a><button className="primary" onClick={() => setEditing('new')}><Plus /> New finding</button></div></header>

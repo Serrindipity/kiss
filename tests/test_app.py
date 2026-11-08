@@ -68,6 +68,22 @@ def test_findings_validate_scope_and_detect_conflicts(client):
     assert client.post('/api/findings', json=finding).status_code == 422
 
 
+def test_delete_finding(client):
+    login(client)
+    client.post('/api/import', content=XML)
+    host = client.get('/api/state').json()['hosts'][0]
+    finding = {'title': 'SMB configuration', 'description': '', 'steps': '', 'remediation': '', 'finders': ['sohee'], 'scope': [{'host_id': host['id'], 'ports': ['445/tcp']}]}
+    saved = client.post('/api/findings', json=finding).json()
+    # A stale revision is rejected, and the finding is preserved.
+    assert client.delete(f"/api/findings/{saved['id']}?revision=0").status_code == 409
+    assert len(client.get('/api/state').json()['findings']) == 1
+    # The current revision deletes it.
+    assert client.delete(f"/api/findings/{saved['id']}?revision={saved['revision']}").status_code == 200
+    assert client.get('/api/state').json()['findings'] == []
+    # Deleting an unknown id is a 404.
+    assert client.delete(f"/api/findings/{saved['id']}?revision=1").status_code == 404
+
+
 def test_images_are_validated_and_authenticated(client):
     login(client)
     assert client.post('/api/attachments', content=b'<svg onload="alert(1)"/>').status_code == 415
